@@ -36,13 +36,60 @@ document.addEventListener("DOMContentLoaded", () => {
   map.selector = document.querySelector(".map")
   map.width = map.selector.offsetWidth
   map.height = map.selector.offsetHeight
+  map.selector.addEventListener('click', mousemove);
 
   document.addEventListener("keydown", handleKeyDown)
 
   document.addEventListener("keyup", stopMove);
 
+
 });
 
 
 
+let i = 0;
+const border = {  
+  "startX":0,
+  "startY":0,
+  "endX":0,
+  "endY":0
+}
 
+function mousemove(event){
+  
+
+  if(i == 0){
+    // coordonnée point 1
+    border.startX = event.clientX 
+    border.startY = event.clientY
+    i++
+    return 
+  }
+
+  if(i==1){
+    // coordonnée point 2
+    border.endX = event.clientX 
+    border.endY = event.clientY
+
+    const save = window.prompt("voulez vous enregistrer la valeur?","ok")
+
+    if(save == "ok")
+    {
+      listBorders.push(border); 
+
+    }
+    
+    if(save == "end"){
+
+      map.selector.removeEventListener('click', mousemove);
+    
+    }
+    i=0
+  }
+  
+
+  console.log(listBorders)
+}
+
+
+const listBorders = []
