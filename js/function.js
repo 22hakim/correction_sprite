@@ -43,6 +43,7 @@ function handleKeyDown(event)
 function turnTrainer(line)
 {   
   if(repeatEvent == true){
+
     idTimer = setInterval(()=>{
 
           if(sprite.posX == 4)
@@ -52,7 +53,7 @@ function turnTrainer(line)
           perso.style.backgroundPositionY = line*(sprite.size/sprite.frame)+"px"
           perso.style.backgroundPositionX = sprite.posX++ * (sprite.size/sprite.frame) +"px"
     
-    },250)
+    },100)
   }
 }
 
@@ -62,9 +63,20 @@ function moveTrainer(posx, posy)
   map.posxInTheMap += posx
   map.posyInTheMap += posy
 
-  // je bouge le perso 
-  perso.style.top  =  map.posyInTheMap+"px"
-  perso.style.left =  map.posxInTheMap+"px"
+  // je vais gerer toutes les collisions possible faite par le dresseur
+  const isCollide = cheickCollisions();
+  
+  if(isCollide){
+
+    stopMove()
+
+  }else{
+
+    // je bouge le perso seulement s'il n'y a pas de collisions
+    perso.style.top  =  map.posyInTheMap+"px"
+    perso.style.left =  map.posxInTheMap+"px"
+  }
+  
 }
 
 function stopMove()
@@ -79,3 +91,36 @@ function stopMove()
   repeatEvent = true;
 }
 
+function cheickCollisions()
+{
+  // connaitre la taille de la map 
+  // console.log(map.width, map.height)
+
+  // si je suis trop à gauche
+  if(map.posxInTheMap <0){
+    map.posxInTheMap = 0;
+    return true;
+  }
+
+  // je suis plus à droite que la map
+  if(map.posxInTheMap >= map.width - 64)
+  {
+    map.posxInTheMap = map.width -70;
+    return true
+  }
+
+  // si je suis trop à haut
+  if(map.posyInTheMap < 0){
+    map.posyInTheMap = 0;
+    return true;
+  }
+
+  // je suis plus bas que la map
+  if(map.posyInTheMap >= map.height - 64)
+  {
+    map.posyInTheMap = map.height - 70
+    return true
+  }
+
+  return false
+}

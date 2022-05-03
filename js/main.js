@@ -7,7 +7,10 @@ const sprite = {
 
 const map = {
   "posxInTheMap" : 0,
-  "posyInTheMap" : 0
+  "posyInTheMap" : 0,
+  "selector": null,
+  "width" : 0,
+  "height": 0
 }
 
 const trainerStatus = {
@@ -21,18 +24,18 @@ const trainerStatus = {
   "moveRight" : 5,
   "moveTop" : -5,
   "moveBottom" : 5
-//largeur: 772px; hauteur: 642;
 }
 
 let perso, idTimer, repeatEvent = true;
-// perso c'est la vignette 
-// idTimer ca va etre une variable qui contiendra mon timer 
-// repeatEvent ca va etre un boolean qui va gerer si je laisse
-// mon evenement se repeter ou non  
 
 document.addEventListener("DOMContentLoaded", () => {
 
   perso = createPerso();
+
+  // je mets a jour les infos de ma map
+  map.selector = document.querySelector(".map")
+  map.width = map.selector.offsetWidth
+  map.height = map.selector.offsetHeight
 
   document.addEventListener("keydown", handleKeyDown)
 
