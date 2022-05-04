@@ -48,35 +48,35 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 let i = 0;
-const border = {  
-  "startX":0,
-  "startY":0,
-  "endX":0,
-  "endY":0
-}
+const listBorders = []
+let startX, startY, endX, endY;
 
 function mousemove(event){
   
-
   if(i == 0){
     // coordonnée point 1
-    border.startX = event.clientX 
-    border.startY = event.clientY
+    startX = event.clientX 
+    startY = event.clientY
     i++
     return 
   }
 
   if(i==1){
     // coordonnée point 2
-    border.endX = event.clientX 
-    border.endY = event.clientY
+    endX = event.clientX 
+    endY = event.clientY
 
     const save = window.prompt("voulez vous enregistrer la valeur?","ok")
 
     if(save == "ok")
     {
+      const border = {
+        "startX" : startX,
+        "startY" : startY,
+        "endX"   : endX,
+        "endY"   : endY,
+      }
       listBorders.push(border); 
-
     }
     
     if(save == "end"){
@@ -86,10 +86,8 @@ function mousemove(event){
     }
     i=0
   }
-  
 
   console.log(listBorders)
 }
 
 
-const listBorders = []
